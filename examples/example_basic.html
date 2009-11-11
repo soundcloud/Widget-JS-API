@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>SC Player JS API</title>
+  <meta name="generator" content="TextMate http://macromates.com/">
+  <meta name="author" content="Matas Petrikas">
+</head>
+<body>
+  <h1>Player JavaScript API - simple callback implementation</h1>
+  <script type="text/javascript" charset="utf-8" src="../soundcloud.player.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  
+    // ------- a simple auto-play example ----------
+    // please refer to the documentation for the full list of available callbacks
+    soundcloud.onPlayerReady = function(flashId, data) {
+      // please refer to the documentation for the full list of available mathods
+      soundcloud.getPlayer(flashId).api_play();
+    };
+  
+  </script>
+  <!-- 
+    Please note the following differences from the standard embed code:
+    The 'object' tag has an 'id' attribute set to the player identifier (yourPlayerId),
+    also, the 'embed' tag has a 'name' attribute set to the player identifier (yourPlayerId),
+    also, there's the query parameter 'object_id' is set to the player identifier (yourPlayerId).
+    The query parameter 'enable_api' is also set to true, so the callback from Flash will be fired.
+  
+    These settings are mandatory, for the JS API to work across a wide range of browsers.
+    If you're using SWFObject or similar Flash generators, set 'id' to the player identifier,
+    also add 'enable_api:true, object_id:"yourPlayerId"' to the flashvars object
+    -->
+  <object height="81" width="100%" id="yourPlayerId">
+    <param name="movie" value="http://player.soundcloud.dev/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId"></param>
+    <param name="allowscriptaccess" value="always"></param>
+    <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.dev/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
+  </object>
+</body>
+</html>
