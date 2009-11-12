@@ -16,7 +16,7 @@
   var testMethods = function(flashId, data) {
     var flash = this;
     // please refer to the documentation for the full list of available mathods
-    var methods = ["api_load","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getId","api_getVolume","api_getTrackLength","api_getTrackPosition","api_getTracks"];
+    var methods = ["api_load","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks"];
     console.log('Player node', flash);
     console.group('Testing JS API Methods');
     for (var i = methods.length - 1; i >= 0; i--){

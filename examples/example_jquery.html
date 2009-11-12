@@ -14,11 +14,11 @@
     
     // ------- a simple auto-play example ----------
     $(function() {
-      $(document).bind('soundcloud:onPlayerReady', function(event) {
+      $(document).bind('soundcloud:onPlayerReady', function(event, data) {
         // the soundcloud.player.js wrapper triggers custom events
         // please refer to JS API wrapper for full event list
-        var mediaType = event.mediaType,
-            mediaId   = event.mediaId,
+        var mediaType = data.mediaType,
+            mediaId   = data.mediaId,
             apiUrl = 'http://api.soundcloud.com/' + mediaType + 's/' + mediaId + '.json?callback=?';
         // call the SoundCloud API for more info
         $.getJSON(apiUrl, function(data) {
