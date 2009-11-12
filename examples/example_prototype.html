@@ -12,18 +12,19 @@
   <script type="text/javascript" charset="utf-8" src="../soundcloud.player.js"></script>
   <script type="text/javascript" charset="utf-8">
     
-    // ------- an example of Protoype integration ----------
+    // ------- an example of Prototype integration ----------
       $(document)
         .observe('soundcloud:onPlayerReady', function(event) {
           // the soundcloud.player.js wrapper triggers custom events
-          // please refer to JS API wrapper for full event list
+          // please refer to JS API wrapper for full the event list
           var flash = event.target,
               playing;
           // insert a 'play' link
-          $$('body')[0].insert('<a href="#" id="play">Click to Play</a>');
+          $('controls').insert('<a href="#" id="play">Click to Play</a>');
+          var link= $('play');
+
           // toggle button
           var toggleLink = function(event) {
-            var link= $('play');
             playing = !playing;
             if(playing){
               link.innerHTML = 'Click to Pause';
@@ -32,7 +33,7 @@
             }
           };
           // listen to click on 'play' link
-          $('play').observe('click', function(event){
+          link.observe('click', function(event){
             if(playing){
               flash.api_pause();
             }else{
@@ -78,5 +79,60 @@
     <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
   </object>
   <p id="info">Track info</p>
+  <div id="controls"></div>
+  
+  <pre>
+    <code>
+      // ------- an example of Prototype integration ----------
+        $(document)
+          .observe('soundcloud:onPlayerReady', function(event) {
+            // the soundcloud.player.js wrapper triggers custom events
+            // please refer to JS API wrapper for full the event list
+            var flash = event.target,
+                playing;
+            // insert a 'play' link
+            $('controls').insert('&lt;a href="#" id="play"&gt;Click to Play'&lt;/a&gt;');
+            var link= $('play');
+
+            // toggle button
+            var toggleLink = function(event) {
+              playing = !playing;
+              if(playing){
+                link.innerHTML = 'Click to Pause';
+              }else{
+                link.innerHTML = 'Click to Play';
+              }
+            };
+            // listen to click on 'play' link
+            link.observe('click', function(event){
+              if(playing){
+                flash.api_pause();
+              }else{
+                flash.api_play();
+              }
+              Event.stop(event);
+            });
+
+            // listen to events from the player, display infos and toggle the button state
+            $(document)
+            .observe('soundcloud:onMediaPlay', function(event) {
+              var mediaType = event.memo.mediaType,
+                  mediaId   = event.memo.mediaId;
+              $('info').innerHTML = 'the ' + mediaType + ' no. ' + mediaId + ' is playing';
+              toggleLink();
+            })
+            .observe('soundcloud:onMediaPause', function(event) {
+              var mediaType = event.memo.mediaType,
+                  mediaId   = event.memo.mediaId,
+                  // please refer to JS API documention for the full list of player's public methods
+                  currentPosition = event.target.api_getTrackPosition();
+              $('info').innerHTML = 'the ' + mediaType + ' no. ' + mediaId + ' was paused at ' + currentPosition + 's';
+              toggleLink();
+            });
+          });
+      
+    </code>
+  </pre>
+  
 </body>
 </html>

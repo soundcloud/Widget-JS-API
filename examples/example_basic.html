@@ -8,16 +8,17 @@
   <meta name="author" content="Matas Petrikas">
 </head>
 <body>
-  <h1>Player JavaScript API - simple callback implementation</h1>
+  <h1>Player JavaScript API - simple listener implementation (JS Library agnostic)</h1>
   <script type="text/javascript" charset="utf-8" src="../soundcloud.player.js"></script>
   <script type="text/javascript" charset="utf-8">
   
     // ------- a simple auto-play example ----------
-    // please refer to the documentation for the full list of available callbacks
-    soundcloud.onPlayerReady = function(flashId, data) {
-      // please refer to the documentation for the full list of available mathods
+    // please refer to the documentation for the full list of available events
+    soundcloud.addEventListener('onPlayerReady', function(flashId, data) {
+      // please refer to the documentation for the full list of available methods
+      // btw, here the flash can be accessed too as 'this' like in 'this.api_play()'
       soundcloud.getPlayer(flashId).api_play();
-    };
+    });
   
   </script>
   <!-- 
@@ -36,5 +37,16 @@
     <param name="allowscriptaccess" value="always"></param>
     <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
   </object>
+  
+  <pre>
+    <code>
+      soundcloud.addListener('onPlayerReady', function(flashId, data) {
+        // please refer to the documentation for the full list of available methods
+        // btw, here the flash can be accessed too as 'this' like in 'this.api_play()'
+        soundcloud.getPlayer(flashId).api_play();
+      });
+    </code>
+  </pre>
+  
 </body>
 </html>

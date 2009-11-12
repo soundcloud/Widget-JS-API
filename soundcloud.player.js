@@ -8,10 +8,12 @@
 window.soundcloud = {
   _version: 0.1,
   _debugMode: false,
+  _listeners: [],
   // re-dispatches player events in the DOM, using JS library support, the events also should bubble up the DOM
   _redispatch: function(eventType, flashId, data) {
     // find the flash player, if there's no ID set, will dispatch events of the document node
     var playerNode = flashId && this.getPlayer(flashId) || document,
+        listeners  = this._listeners[eventType];
         // construct the custome eventType  e.g. 'soundcloud:onPlayerReady'
         customEventType = 'soundcloud:' + eventType;
     // re-dispatch SoundCloud events up in the DOM
@@ -24,8 +26,36 @@ window.soundcloud = {
     }else{
       // TODO add more JS libraries that support custom DOM events
     }
+    // if there are any listeners registered to this event, trigger them all
+    if(listeners){
+      for(i in this._listeners[eventType]){
+        listeners[i].apply(playerNode, [flashId, data]);
+      }
+    }
+    // log the events in debug mode
     if(this._debugMode && window.console){
       console.log(eventType, customEventType, data, flashId);
+    }
+  },
+  // you can add multiple listeners to a certain event
+  // e.g. soundcloud.addEventListener('onPlayerReady', myFunctionOne);
+  //      soundcloud.addEventListener('onPlayerReady', myFunctionTwo);
+  addEventListener: function(eventType, callback) {
+    if(!this._listeners[eventType]){
+      this._listeners[eventType] = [];
+    }
+    this._listeners[eventType].push(callback);
+  },
+  // you can also remove the function listener if e.g you want to trigger it only once
+  // soundcloud.removeEventListener('onMediaPlay', myFunctionOne);
+  removeEventListener: function(eventType, callback) {
+    var listeners = this._listeners[eventType];
+    if(listeners){
+      for(i in listeners){
+        if(listeners[i] === callback){
+          listeners.splice(i, 1);
+        }
+      }
     }
   },
   // get player node based on its id (if object tag) or name (if embed tag)
@@ -61,6 +91,7 @@ window.soundcloud = {
   // @data: an object containing .mediaType (eg. 'set', 'track', 'group', etc,) .mediaId (e.g. '4532')
   // in buffering events data contains also .percent = (e.g. '99')
   onPlayerReady: function(flashId, data) {
+    debugger
     this._redispatch('onPlayerReady', flashId, data);
   },
   // fired when player starts playing current track (fired only once per track)
