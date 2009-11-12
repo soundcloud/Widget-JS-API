@@ -91,7 +91,6 @@ window.soundcloud = {
   // @data: an object containing .mediaType (eg. 'set', 'track', 'group', etc,) .mediaId (e.g. '4532')
   // in buffering events data contains also .percent = (e.g. '99')
   onPlayerReady: function(flashId, data) {
-    debugger
     this._redispatch('onPlayerReady', flashId, data);
   },
   // fired when player starts playing current track (fired only once per track)
