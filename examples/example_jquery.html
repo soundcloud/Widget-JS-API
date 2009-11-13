@@ -17,9 +17,7 @@
       $(document).bind('soundcloud:onPlayerReady', function(event, data) {
         // the soundcloud.player.js wrapper triggers custom events
         // please refer to JS API wrapper for full event list
-        var mediaType = data.mediaType,
-            mediaId   = data.mediaId,
-            apiUrl = 'http://api.soundcloud.com/' + mediaType + 's/' + mediaId + '.json?callback=?';
+        var apiUrl = mediaUri + '.json?callback=?';
         // call the SoundCloud API for more info
         $.getJSON(apiUrl, function(data) {
           // please refer to SoundCloud api for the resource types

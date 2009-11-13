@@ -93,7 +93,7 @@ window.soundcloud = {
   // fired when player has loaded its data and is ready to accept calls from outside
   // the player will call these functions only if in it's flashvars there's a parameter enable_api=true
   // @flashId: the player id, basically the Flash node should be accessible to JS with soundcloud.getPlayer(flashId)
-  // @data: an object containing .mediaType (eg. 'set', 'track', 'group', etc,) .mediaId (e.g. '4532')
+  // @data: an object containing .mediaUri (eg. 'http://api.soundcloud.com/tracks/49931') .mediaId (e.g. '4532')
   // in buffering events data contains also .percent = (e.g. '99')
   onPlayerReady: function(flashId, data) {
     this._redispatch('onPlayerReady', flashId, data);
