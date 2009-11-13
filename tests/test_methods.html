@@ -13,14 +13,13 @@
 <script type="text/javascript" charset="utf-8">
   
   // ------- Test the public methods in player  ----------
-  var testMethods = function(flashId, data) {
-    var flash = this;
+  var testMethods = function(player, data) {
     // please refer to the documentation for the full list of available mathods
-    var methods = ["api_load","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrackIndex", "api_getCurrentTrackIndex"];
+    var methods = ["api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrackIndex", "api_getCurrentTrackIndex"];
     console.log('Player node', flash);
     console.group('Testing JS API Methods');
     for (var i = methods.length - 1; i >= 0; i--){
-      if(!!flash[methods[i]]){
+      if(!!player[methods[i]]){
         console.debug(methods[i] + ' passed');
       }else{
         console.error(methods[i] + ' failed');

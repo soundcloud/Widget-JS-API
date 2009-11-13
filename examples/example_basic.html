@@ -14,10 +14,10 @@
   
     // ------- a simple auto-play example ----------
     // please refer to the documentation for the full list of available events
-    soundcloud.addEventListener('onPlayerReady', function(flashId, data) {
+    soundcloud.addEventListener('onPlayerReady', function(player, data) {
       // please refer to the documentation for the full list of available methods
       // btw, here the flash can be accessed too as 'this' like in 'this.api_play()'
-      soundcloud.getPlayer(flashId).api_play();
+      player.api_play();
     });
   
   </script>
