@@ -1,2 +1,18 @@
-Check out the examples,
-the documentation will be updated shortly
+JavaScript based API for the SoundCloud player widget.
+Includes jQuery and Prototype.js support.
+
+soundcloud.addListener('onPlayerReady', function(player, data) {
+  console.log('player ready');
+});
+
+
+The Documentation:
+http://wiki.github.com/soundcloud/Widget-JS-API
+
+
+Also check out the examples in the source.
+http://github.com/soundcloud/Widget-JS-API/tree/master/examples/
+
+
+The project is published under MIT license:
+Copyright © 2009 SoundCloud Ltd.
