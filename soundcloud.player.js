@@ -1,6 +1,7 @@
 /*
 *   JavaScript interface for the SoundCloud Player widget
 *   Author: Matas Petrikas, matas@soundcloud.com
+*   Copyright (c) 2009  SoundCloud Ltd.
 *   Licensed under the MIT license:
 *   http://www.opensource.org/licenses/mit-license.php
 */
@@ -9,7 +10,7 @@ window.soundcloud = {
   version: "0.1",
   debug: false,
   _listeners: [],
-  // re-dispatches player events in the DOM, using JS library support, the events also should bubble up the DOM
+  // re-dispatches widget events in the DOM, using JS library support, the events also should bubble up the DOM
   _redispatch: function(eventType, flashId, data) {
     try{
       // find the flash player
@@ -19,7 +20,7 @@ window.soundcloud = {
           customEventType = 'soundcloud:' + eventType;
     }catch(e){
       if(window.console){
-        console.error('unable to dispatch player event ' + eventType + ' for the player id ' + flashId, data, e);
+        console.error('unable to dispatch widget event ' + eventType + ' for the widget id ' + flashId, data, e);
       }
       return;
     }
@@ -64,7 +65,7 @@ window.soundcloud = {
       }
     }
   },
-  // get player node based on its id (if object tag) or name (if embed tag)
+  // get widget node based on its id (if object tag) or name (if embed tag)
   // if you're using SWFObject or other dynamic Flash generators, please make sure that you set the id parameter
   //  only if the DOM has an id/name it's possible to call player's methods.
   // Important!: because of the bug in Opera browser, the Flash can't get its own id
@@ -72,17 +73,18 @@ window.soundcloud = {
   getPlayer: function(id){
     try{
       if(!id){
-        throw "The SoundCloud player DOM object needs an id atribute, please refer to SoundCloud Widget API documentation.";
+        throw "The SoundCloud Widget DOM object needs an id atribute, please refer to SoundCloud Widget API documentation.";
       }
-      var flash = document.embeds && document.embeds[id] || document.getElementById(id);
+      var isIE = (/msie/i).test(navigator.userAgent) && !(/opera/i).test(navigator.userAgent);
+      var flash = isIE ? window[id] : document[id];
       if(flash){
         if(flash.api_getFlashId){
           return flash;
         }else{
-          throw "The SoundCloud player External Interface is not accessible. Check that allowscriptaccess is set to 'always' in embed code";
+          throw "The SoundCloud Widget External Interface is not accessible. Check that allowscriptaccess is set to 'always' in embed code";
         }
       }else{
-        throw "The SoundCloud player with an id " + id + " couldn't be found";
+        throw "The SoundCloud Widget with an id " + id + " couldn't be found";
       }
     }catch(e){
       if (console && console.error) {
@@ -91,15 +93,15 @@ window.soundcloud = {
       throw e;
     }
   },
-  // fired when player has loaded its data and is ready to accept calls from outside
-  // the player will call these functions only if in it's flashvars there's a parameter enable_api=true
-  // @flashId: the player id, basically the Flash node should be accessible to JS with soundcloud.getPlayer(flashId)
+  // fired when widget has loaded its data and is ready to accept calls from outside
+  // the widget will call these functions only if in it's flashvars there's a parameter enable_api=true
+  // @flashId: the widget id, basically the Flash node should be accessible to JS with soundcloud.getPlayer(flashId)
   // @data: an object containing .mediaUri (eg. 'http://api.soundcloud.com/tracks/49931') .mediaId (e.g. '4532')
   // in buffering events data contains also .percent = (e.g. '99')
   onPlayerReady: function(flashId, data) {
     this._redispatch('onPlayerReady', flashId, data);
   },
-  // fired when player starts playing current track (fired only once per track)
+  // fired when widget starts playing current track (fired only once per track)
   onMediaStart : function(flashId, data) {
     this._redispatch('onMediaStart', flashId, data);
   },
@@ -107,7 +109,7 @@ window.soundcloud = {
   onMediaEnd : function(flashId, data) {
     this._redispatch('onMediaEnd', flashId, data);
   },
-  // fired when player starts playing current track (fired on every play, seek)
+  // fired when widget starts playing current track (fired on every play, seek)
   onMediaPlay : function(flashId, data) {
     this._redispatch('onMediaPlay', flashId, data);
   },
@@ -115,11 +117,11 @@ window.soundcloud = {
   onMediaPause : function(flashId, data) {
     this._redispatch('onMediaPause', flashId, data);
   },
-  // fired when the player is still buffering, means you can't seek in the track fully yet
+  // fired when the widget is still buffering, means you can't seek in the track fully yet
   onMediaBuffering : function(flashId, data) {
     this._redispatch('onMediaBuffering', flashId, data);
   },
-  // fired when the player is done buffering and the whole track length is seekable
+  // fired when the widget is done buffering and the whole track length is seekable
   onMediaDoneBuffering : function(flashId, data) {
     this._redispatch('onMediaDoneBuffering', flashId, data);
   }
