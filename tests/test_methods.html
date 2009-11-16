@@ -9,23 +9,33 @@
 </head>
 <body>
 <h1>Player JavaScript API - test public methods</h1>
+<style type="text/css" media="screen">
+  .error {
+    color: red;
+  }
+</style>
+<script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="../soundcloud.player.js"></script>
 <script type="text/javascript" charset="utf-8">
   
   // ------- Test the public methods in player  ----------
   var testMethods = function(player, data) {
     // please refer to the documentation for the full list of available mathods
-    var methods = ["api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrackIndex", "api_getCurrentTrackIndex"];
-    console.log('Player node', flash);
+    var methods = ["api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrack", "api_getCurrentTrackIndex"];
+    var $container = $('#results');
+    console.log('Player node', player);
     console.group('Testing JS API Methods');
     for (var i = methods.length - 1; i >= 0; i--){
-      if(!!player[methods[i]]){
+      var name = methods[i],
+          status = !!player[name];
+      $container.append("<tr class=\"" + (status ? '' : 'error') + "\"><td>" + name + "</td><td>" + (status ? 'passed' : 'failed' ) + "</td></tr>");
+      if(status){
         console.debug(methods[i] + ' passed');
       }else{
         console.error(methods[i] + ' failed');
       }
     };
-    console.endGroup();
+    console.groupEnd();
   };
   // please refer to the documentation for the full list of available callbacks
   soundcloud.addEventListener('onPlayerReady', testMethods);
@@ -47,5 +57,8 @@
   <param name="allowscriptaccess" value="always"></param>
   <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
 </object>
+<table id="results">
+  <tr><th>Method</th><th>Status</th></tr>
+</table>
 </body>
 </html>

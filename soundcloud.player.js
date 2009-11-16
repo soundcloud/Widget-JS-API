@@ -11,36 +11,37 @@ window.soundcloud = {
   _listeners: [],
   // re-dispatches player events in the DOM, using JS library support, the events also should bubble up the DOM
   _redispatch: function(eventType, flashId, data) {
-    // find the flash player, if there's no ID set, will dispatch events of the document node
     try{
+      // find the flash player
       var playerNode = this.getPlayer(flashId),
           listeners  = this._listeners[eventType] || [];
           // construct the custom eventType  e.g. 'soundcloud:onPlayerReady'
           customEventType = 'soundcloud:' + eventType;
-      // re-dispatch SoundCloud events up in the DOM
-      if(window.jQuery){
-        // if jQuery is available, trigger the custom event
-        jQuery(playerNode).trigger(customEventType, [data]);
-      }else if(window.Prototype){
-        // if Prototype.js is available, fire the custom event
-        $(playerNode).fire(customEventType, data);
-      }else{
-        // TODO add more JS libraries that support custom DOM events
-      }
-      // if there are any listeners registered to this event, trigger them all
-      for(i in listeners){
-        listeners[i].apply(playerNode, [playerNode, data]);
-      }
-      // log the events in debug mode
-      if(this.debug && window.console){
-        console.log(customEventType, eventType, flashId, data);
-      }
-      
     }catch(e){
       if(window.console){
-        console.error('unable to dispatch player event ' + eventType, flashId, data, e);
+        console.error('unable to dispatch player event ' + eventType + ' for the player id ' + flashId, data, e);
       }
+      return;
     }
+    // re-dispatch SoundCloud events up in the DOM
+    if(window.jQuery){
+      // if jQuery is available, trigger the custom event
+      jQuery(playerNode).trigger(customEventType, [data]);
+    }else if(window.Prototype){
+      // if Prototype.js is available, fire the custom event
+      $(playerNode).fire(customEventType, data);
+    }else{
+      // TODO add more JS libraries that support custom DOM events
+    }
+    // if there are any listeners registered to this event, trigger them all
+    for(i in listeners){
+      listeners[i].apply(playerNode, [playerNode, data]);
+    }
+    // log the events in debug mode
+    if(this.debug && window.console){
+      console.log(customEventType, eventType, flashId, data);
+    }
+      
   },
   // you can add multiple listeners to a certain event
   // e.g. soundcloud.addEventListener('onPlayerReady', myFunctionOne);
