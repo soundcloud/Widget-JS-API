@@ -21,11 +21,11 @@
   // ------- Test the public methods in player  ----------
   var testMethods = function(player, data) {
     // please refer to the documentation for the full list of available mathods
-    var methods = ["api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrack", "api_getCurrentTrackIndex"];
+    var methods = ["api_load", "api_skip","api_play","api_pause","api_stop","api_toggle", "api_next","api_prev", "api_seekTo","api_setVolume","api_getFlashId","api_getVolume","api_getTrackDuration","api_getTrackPosition","api_getTracks", "api_getCurrentTrack", "api_getCurrentTrackIndex"];
     var $container = $('#results');
     console.log('Player node', player);
     console.group('Testing JS API Methods');
-    for (var i = methods.length - 1; i >= 0; i--){
+    for (var i = 0, l  = methods.length; i < l; i++){
       var name = methods[i],
           status = !!player[name];
       $container.append("<tr class=\"" + (status ? '' : 'error') + "\"><td>" + name + "</td><td>" + (status ? 'passed' : 'failed' ) + "</td></tr>");

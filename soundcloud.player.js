@@ -21,7 +21,7 @@
             // construct the custom eventType  e.g. 'soundcloud:onPlayerReady'
             customEventType = 'soundcloud:' + eventType;
       }catch(e){
-        if(window.console){
+        if(this.debug && window.console){
           console.error('unable to dispatch widget event ' + eventType + ' for the widget id ' + flashId, data, e);
         }
         return;
