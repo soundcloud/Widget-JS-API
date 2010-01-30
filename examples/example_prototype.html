@@ -9,13 +9,13 @@
 </head>
 <body>
   <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-  <script type="text/javascript" charset="utf-8" src="../soundcloud.player.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../soundcloud.player.api.js"></script>
   <script type="text/javascript" charset="utf-8">
     
     // ------- an example of Prototype integration ----------
       $(document)
         .observe('soundcloud:onPlayerReady', function(event) {
-          // the soundcloud.player.js wrapper triggers custom events
+          // the soundcloud.player.api.js wrapper triggers custom events
           // please refer to JS API wrapper for full the event list
           var flash = event.target,
               playing;
@@ -86,7 +86,7 @@
       // ------- an example of Prototype integration ----------
         $(document)
           .observe('soundcloud:onPlayerReady', function(event) {
-            // the soundcloud.player.js wrapper triggers custom events
+            // the soundcloud.player.api.js wrapper triggers custom events
             // please refer to JS API wrapper for full the event list
             var flash = event.target,
                 playing;
