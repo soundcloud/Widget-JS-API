@@ -125,6 +125,10 @@
     // fired when the widget is done buffering and the whole track length is seekable
     onMediaDoneBuffering : function(flashId, data) {
       this._redispatch('onMediaDoneBuffering', flashId, data);
+    },
+    // fired when the widget can't get the requested data from the server (the resource is removed, hidden, etc.)
+    onPlayerError : function(flashId, data) {
+      this._redispatch('onPlayerError', flashId, data);
     }
   };
   
