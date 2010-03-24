@@ -73,11 +73,12 @@
     // Important!: because of the bug in Opera browser, the Flash can't get its own id
     // so the generator should set it additionally through flashvars parameter 'object_id'
     getPlayer: function(id){
+      var flash;
       try{
         if(!id){
           throw "The SoundCloud Widget DOM object needs an id atribute, please refer to SoundCloud Widget API documentation.";
         }
-        var flash = isIE ? window[id] : document[id];
+        flash = isIE ? window[id] : document[id];
         if(flash){
           if(flash.api_getFlashId){
             return flash;
