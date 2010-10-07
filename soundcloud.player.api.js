@@ -123,6 +123,10 @@
     onMediaBuffering : function(flashId, data) {
       this._redispatch('onMediaBuffering', flashId, data);
     },
+    // fired when the user seeks in the track
+    onMediaSeek : function(flashId, data) {
+      this._redispatch('onMediaSeek', flashId, data);
+    },
     // fired when the widget is done buffering and the whole track length is seekable
     onMediaDoneBuffering : function(flashId, data) {
       this._redispatch('onMediaDoneBuffering', flashId, data);
