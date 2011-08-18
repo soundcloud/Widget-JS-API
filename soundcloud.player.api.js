@@ -31,22 +31,22 @@
       // re-dispatch SoundCloud events up in the DOM
       if(window.jQuery){
         // if jQuery is available, trigger the custom event
-        try {
-			 jQuery(playerNode).trigger(customEventType, [data]);
-		} catch (e) {
-			if (this.debug && window.console) {
-				console.error("Unable to dispatch jQuery Event (.trigger failed) " + eventType + " for the widget id " + flashId, data, e);
-			}
-		}
+        try{
+          jQuery(playerNode).trigger(customEventType, [data]);
+        }catch(e){
+          if(this.debug && window.console){
+            console.error("Unable to dispatch jQuery Event (.trigger failed) " + eventType + " for the widget id " + flashId, data, e);
+          }
+        }
       }else if(window.Prototype){
         // if Prototype.js is available, fire the custom event
-        try {
-			$(playerNode).fire(customEventType, data);
-		} catch (e) {
-			if (this.debug && window.console) {
-				console.error("Unable to dispatch Prototype Event (.fire failed) " + eventType + " for the widget id " + flashId, data, e);
-			}
-		}
+        try{
+          $(playerNode).fire(customEventType, data);
+        }catch(e){
+          if(this.debug && window.console){
+            console.error("Unable to dispatch Prototype Event (.fire failed) " + eventType + " for the widget id " + flashId, data, e);
+          }
+        }
       }else{
         // TODO add more JS libraries that support custom DOM events
       }
