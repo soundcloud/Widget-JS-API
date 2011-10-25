@@ -6,7 +6,7 @@
 *   http://www.opensource.org/licenses/mit-license.php
 */
 (function(){
-  var isIE = (/msie/i).test(navigator.userAgent) && !(/opera/i).test(navigator.userAgent);
+  var isIE = (/msie (6|7|8)/i).test(navigator.userAgent) && !(/opera/i).test(navigator.userAgent);
   
   var soundcloud = window.soundcloud = {
     version: "0.1",
