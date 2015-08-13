@@ -76,7 +76,7 @@
       var flash;
       try{
         if(!id){
-          throw "The SoundCloud Widget DOM object needs an id atribute, please refer to SoundCloud Widget API documentation.";
+          throw "The SoundCloud Widget DOM object needs an id attribute, please refer to SoundCloud Widget API documentation.";
         }
         flash = isIE ? window[id] : document[id];
         if(flash){
