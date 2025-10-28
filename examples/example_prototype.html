@@ -9,13 +9,10 @@
 </head>
 <body>
   <script type="text/javascript" charset="utf-8" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6.1.0/prototype.js"></script>
-  <script type="text/javascript" charset="utf-8" src="../soundcloud.player.api.js"></script>
   <script type="text/javascript" charset="utf-8">
     
     // ------- an example of Prototype integration ----------
       $(document)
-        .observe('soundcloud:onPlayerReady', function(event) {
-          // the soundcloud.player.api.js wrapper triggers custom events
           // please refer to JS API wrapper for full the event list
           var flash = event.target,
               playing;
@@ -44,13 +41,11 @@
           
           // listen to events from the player, display infos and toggle the button state
           $(document)
-          .observe('soundcloud:onMediaPlay', function(event) {
             var mediaUri = event.memo.mediaUri,
                 mediaId   = event.memo.mediaId;
             $('info').innerHTML = 'the ' + mediaUri + ' no. ' + mediaId + ' is playing';
             toggleLink();
           })
-          .observe('soundcloud:onMediaPause', function(event) {
             var mediaUri = event.memo.mediaUri,
                 mediaId   = event.memo.mediaId,
                 // please refer to JS API documention for the full list of player's public methods
@@ -74,9 +69,7 @@
     also add 'enable_api:true, object_id:"yourPlayerId"' to the flashvars object
     -->
   <object height="81" width="100%" id="yourPlayerId" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
-    <param name="movie" value="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId"></param>
     <param name="allowscriptaccess" value="always"></param>
-    <embed allowscriptaccess="always" height="81" src="http://player.soundcloud.com/player.swf?url=http%3A%2F%2Fsoundcloud.com%2Fmatas%2Fhobnotropic&amp;enable_api=true&amp;object_id=yourPlayerId" type="application/x-shockwave-flash" width="100%" name="yourPlayerId"></embed>
   </object>
   <p id="info">Track info</p>
   <div id="controls"></div>
@@ -85,8 +78,6 @@
     <code>
       // ------- an example of Prototype integration ----------
         $(document)
-          .observe('soundcloud:onPlayerReady', function(event) {
-            // the soundcloud.player.api.js wrapper triggers custom events
             // please refer to JS API wrapper for full the event list
             var flash = event.target,
                 playing;
@@ -115,13 +106,11 @@
 
             // listen to events from the player, display infos and toggle the button state
             $(document)
-            .observe('soundcloud:onMediaPlay', function(event) {
               var mediaUri = event.memo.mediaUri,
                   mediaId   = event.memo.mediaId;
               $('info').innerHTML = mediaUri + ' is playing';
               toggleLink();
             })
-            .observe('soundcloud:onMediaPause', function(event) {
               var mediaUri = event.memo.mediaUri,
                   mediaId   = event.memo.mediaId,
                   // please refer to JS API documention for the full list of player's public methods
